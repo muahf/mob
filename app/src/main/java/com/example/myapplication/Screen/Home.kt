@@ -1,0 +1,201 @@
+package com.example.myapplication.Screen
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
+
+@Composable
+fun HomeScreen(
+    onOpenDetails: () -> Unit
+) {
+    val cards = listOf(
+        DestinationCardData("Niladri Reservoir", "Tekergat, Sunamgnj", 4.7f),
+        DestinationCardData("Darma Reservoir", "Darma, Kuningan", 4.3f)
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFFF5F6FA))
+            .padding(horizontal = 20.dp, vertical = 14.dp)
+    ) {
+        HeaderSection()
+        Spacer(modifier = Modifier.height(18.dp))
+        TitleSection()
+        Spacer(modifier = Modifier.height(20.dp))
+        SectionHeader()
+        Spacer(modifier = Modifier.height(14.dp))
+
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            items(cards) { item ->
+                DestinationCard(
+                    data = item,
+                    onClick = onOpenDetails
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun HeaderSection() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFFBDE8FF)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.profile),
+                    contentDescription = null,
+                    tint = Color(0xFF1C2A3A),
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = "Leonardo", color = Color(0xFF1A1D2E), fontSize = 14.sp)
+        }
+
+        Box(
+            modifier = Modifier
+                .size(38.dp)
+                .clip(CircleShape)
+                .background(Color(0xFFEDEEF2)),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.notification),
+                contentDescription = null,
+                tint = Color(0xFF1A1D2E),
+                modifier = Modifier.size(20.dp)
+            )
+        }
+    }
+}
+
+@Composable
+private fun TitleSection() {
+    Text(text = "Explore the", fontSize = 44.sp, color = Color(0xFF1A1D2E))
+
+    val styled = buildAnnotatedString {
+        withStyle(style = SpanStyle(color = Color(0xFF1A1D2E), fontWeight = FontWeight.Bold)) {
+            append("Beautiful ")
+        }
+        withStyle(style = SpanStyle(color = Color(0xFFFF7E33), fontWeight = FontWeight.Bold)) {
+            append("world!")
+        }
+    }
+    Text(text = styled, fontSize = 48.sp, lineHeight = 50.sp)
+}
+
+@Composable
+private fun SectionHeader() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = "Best Destination", fontSize = 28.sp, color = Color(0xFF1A1D2E), fontWeight = FontWeight.SemiBold)
+        Text(text = "View all", fontSize = 16.sp, color = Color(0xFFFF7E33))
+    }
+}
+
+@Composable
+private fun DestinationCard(
+    data: DestinationCardData,
+    onClick: () -> Unit
+) {
+    Card(
+        shape = RoundedCornerShape(22.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        modifier = Modifier
+            .width(300.dp)
+            .clickable(onClick = onClick)
+    ) {
+        Column(modifier = Modifier.padding(14.dp)) {
+            Image(
+                painter = painterResource(id = R.drawable.icon),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(260.dp)
+                    .clip(RoundedCornerShape(18.dp))
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = data.title, fontSize = 28.sp, color = Color(0xFF1A1D2E), fontWeight = FontWeight.SemiBold)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = "★", color = Color(0xFFFFB833), fontSize = 14.sp)
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(text = data.rating.toString(), color = Color(0xFF1A1D2E), fontSize = 14.sp)
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    painter = painterResource(id = R.drawable.poisk),
+                    contentDescription = null,
+                    tint = Color(0xFF8A8F9C),
+                    modifier = Modifier.size(14.dp)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(text = data.location, color = Color(0xFF8A8F9C), fontSize = 13.sp)
+            }
+        }
+    }
+}
+
+private data class DestinationCardData(
+    val title: String,
+    val location: String,
+    val rating: Float
+)
