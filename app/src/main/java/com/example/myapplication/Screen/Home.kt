@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.ui.theme.AppFonts
 
 @Composable
 fun HomeScreen(
@@ -48,8 +50,8 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F6FA))
-            .padding(horizontal = 20.dp, vertical = 14.dp)
+            .background(Color(0xFFF9FBFF))
+            .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         HeaderSection()
         Spacer(modifier = Modifier.height(18.dp))
@@ -93,7 +95,12 @@ private fun HeaderSection() {
             }
 
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "Leonardo", color = Color(0xFF1A1D2E), fontSize = 14.sp)
+            Text(
+                text = "Leonardo",
+                color = Color(0xFF1A1D2E),
+                fontSize = 14.sp,
+                fontFamily = AppFonts.SfUi
+            )
         }
 
         Box(
@@ -115,7 +122,12 @@ private fun HeaderSection() {
 
 @Composable
 private fun TitleSection() {
-    Text(text = "Explore the", fontSize = 44.sp, color = Color(0xFF1A1D2E))
+    Text(
+        text = "Explore the",
+        fontSize = 36.sp,
+        color = Color(0xFF1A1D2E),
+        fontFamily = AppFonts.SfUi
+    )
 
     val styled = buildAnnotatedString {
         withStyle(style = SpanStyle(color = Color(0xFF1A1D2E), fontWeight = FontWeight.Bold)) {
@@ -125,7 +137,12 @@ private fun TitleSection() {
             append("world!")
         }
     }
-    Text(text = styled, fontSize = 48.sp, lineHeight = 50.sp)
+    Text(
+        text = styled,
+        fontSize = 46.sp,
+        lineHeight = 50.sp,
+        fontFamily = AppFonts.SfUi
+    )
 }
 
 @Composable
@@ -135,8 +152,19 @@ private fun SectionHeader() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Best Destination", fontSize = 28.sp, color = Color(0xFF1A1D2E), fontWeight = FontWeight.SemiBold)
-        Text(text = "View all", fontSize = 16.sp, color = Color(0xFFFF7E33))
+        Text(
+            text = "Best Destination",
+            fontSize = 23.sp,
+            color = Color(0xFF1A1D2E),
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = AppFonts.SfUi
+        )
+        Text(
+            text = "View all",
+            fontSize = 15.sp,
+            color = Color(0xFFFF914D),
+            fontFamily = AppFonts.SfUi
+        )
     }
 }
 
@@ -155,12 +183,13 @@ private fun DestinationCard(
     ) {
         Column(modifier = Modifier.padding(14.dp)) {
             Image(
-                painter = painterResource(id = R.drawable.icon),
+                painter = painterResource(id = R.drawable.travel_mockup),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(260.dp)
-                    .clip(RoundedCornerShape(18.dp))
+                    .height(210.dp)
+                    .clip(RoundedCornerShape(18.dp)),
+                contentScale = ContentScale.Crop
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -170,11 +199,22 @@ private fun DestinationCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = data.title, fontSize = 28.sp, color = Color(0xFF1A1D2E), fontWeight = FontWeight.SemiBold)
+                Text(
+                    text = data.title,
+                    fontSize = 23.sp,
+                    color = Color(0xFF1A1D2E),
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = AppFonts.SfUi
+                )
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "★", color = Color(0xFFFFB833), fontSize = 14.sp)
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = data.rating.toString(), color = Color(0xFF1A1D2E), fontSize = 14.sp)
+                    Text(
+                        text = data.rating.toString(),
+                        color = Color(0xFF1A1D2E),
+                        fontSize = 14.sp,
+                        fontFamily = AppFonts.SfUi
+                    )
                 }
             }
 
@@ -188,7 +228,12 @@ private fun DestinationCard(
                     modifier = Modifier.size(14.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = data.location, color = Color(0xFF8A8F9C), fontSize = 13.sp)
+                Text(
+                    text = data.location,
+                    color = Color(0xFF8A8F9C),
+                    fontSize = 13.sp,
+                    fontFamily = AppFonts.SfUi
+                )
             }
         }
     }

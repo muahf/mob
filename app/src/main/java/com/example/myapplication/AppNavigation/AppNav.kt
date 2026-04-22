@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.AppNavigation.MainAppScaffold
 import com.example.myapplication.Screen.DetailsScreen
 import com.example.myapplication.Screen.HomeScreen
+import com.example.myapplication.Screen.SplashScreen
 
 @Composable
 fun AppNavigation() {
@@ -17,9 +18,18 @@ fun AppNavigation() {
     MainAppScaffold(navController = navController) { padding ->
         NavHost(
             navController = navController,
-            startDestination = Screen.Home.route,
+            startDestination = Screen.Splash.route,
             modifier = Modifier.padding(padding)
         ) {
+            composable(route = Screen.Splash.route) {
+                SplashScreen(
+                    onNextNavigate = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Splash.route) { inclusive = true }
+                        }
+                    }
+                )
+            }
             composable(route = Screen.Home.route) {
                 HomeScreen(
                     onOpenDetails = {
