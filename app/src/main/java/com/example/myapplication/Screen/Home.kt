@@ -178,21 +178,21 @@ private fun DestinationCard(
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         modifier = Modifier
-            .width(300.dp)
+            .width(240.dp)
             .clickable(onClick = onClick)
     ) {
-        Column(modifier = Modifier.padding(14.dp)) {
+        Column(modifier = Modifier.padding(12.dp)) {
             Image(
                 painter = painterResource(id = R.drawable.travel_mockup),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(210.dp)
+                    .height(240.dp)
                     .clip(RoundedCornerShape(18.dp)),
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -201,24 +201,24 @@ private fun DestinationCard(
             ) {
                 Text(
                     text = data.title,
-                    fontSize = 23.sp,
+                    fontSize = 16.sp,
                     color = Color(0xFF1A1D2E),
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = AppFonts.SfUi
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "★", color = Color(0xFFFFB833), fontSize = 14.sp)
+                    Text(text = "★", color = Color(0xFFFFB833), fontSize = 13.sp)
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = data.rating.toString(),
                         color = Color(0xFF1A1D2E),
-                        fontSize = 14.sp,
+                        fontSize = 13.sp,
                         fontFamily = AppFonts.SfUi
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
@@ -231,7 +231,7 @@ private fun DestinationCard(
                 Text(
                     text = data.location,
                     color = Color(0xFF8A8F9C),
-                    fontSize = 13.sp,
+                    fontSize = 11.sp,
                     fontFamily = AppFonts.SfUi
                 )
             }
