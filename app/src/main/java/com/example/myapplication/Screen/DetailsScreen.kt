@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -40,7 +39,7 @@ fun DetailsScreen(
             .background(Color(0xFFEBF6FF))
     ) {
         Image(
-            painter = painterResource(id = R.drawable.travel_mockup),
+            painter = painterResource(id = R.drawable.f0300adc49024100a89c01bb1b2bacc523162e75),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
