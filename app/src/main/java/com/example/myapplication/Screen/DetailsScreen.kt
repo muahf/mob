@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -27,7 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
-
+import com.example.myapplication.ui.theme.AppFonts
 
 @Composable
 fun DetailsScreen(
@@ -64,20 +65,42 @@ fun DetailsScreen(
                 .background(Color.White)
                 .padding(horizontal = 20.dp, vertical = 18.dp)
         ) {
-            Text("Niladri Reservoir", fontSize = 29.sp, color = Color(0xFF1A1D2E)
-            Spacer(modifier = Modifier.height(6.dp)), fontFamily = R.font.
-            Text("Tekergat, Sunamgnj", fontSize = 14.sp, color = Color(0xFF8A8F9C)
+            Text(
+                text = "Niladri Reservoir",
+                fontSize = 29.sp,
+                color = Color(0xFF1A1D2E),
+                fontFamily = AppFonts.SfUi,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = "Tekergat, Sunamgnj",
+                fontSize = 14.sp,
+                color = Color(0xFF8A8F9C),
+                fontFamily = AppFonts.SfUi
+            )
             Spacer(modifier = Modifier.height(10.dp))
-            Text("4.7 (2498)   \$59/Person", fontSize = 15.sp, color = Color(0xFF1A1D2E)
+            Text(
+                text = "4.7 (2498)   \$59/Person",
+                fontSize = 15.sp,
+                color = Color(0xFF1A1D2E),
+                fontFamily = AppFonts.SfUi
+            )
             Spacer(modifier = Modifier.height(14.dp))
-            Text("About Destination", fontSize = 20.sp, color = Color(0xFF1A1D2E)
+            Text(
+                text = "About Destination",
+                fontSize = 20.sp,
+                color = Color(0xFF1A1D2E),
+                fontFamily = AppFonts.SfUi,
+                fontWeight = FontWeight.SemiBold
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "You will get a complete travel package in this destination. Packages are in form of airline tickets, accommodation, and local transport.",
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 color = Color(0xFF7D8796),
-
+                fontFamily = AppFonts.SfUi
             )
             Spacer(modifier = Modifier.weight(1f))
             Box(

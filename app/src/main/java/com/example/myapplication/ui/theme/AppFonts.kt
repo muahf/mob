@@ -1,9 +1,14 @@
 package com.example.myapplication.ui.theme
 
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import com.example.myapplication.R
 
 object AppFonts {
-    // Fallback until custom font files are added to res/font.
-    val SfUi: FontFamily = FontFamily.SansSerif
-    val GeometricSplash: FontFamily = FontFamily.SansSerif
+    val SfUi: FontFamily = FontFamily(
+        Font(R.font.sfuidisplaybold)
+    )
+    val GeometricSplash: FontFamily = FontFamily(
+        Font(R.font.geometric415blackbt)
+    )
 }
