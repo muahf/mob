@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
-import com.example.myapplication.ui.theme.AppFonts
+
 
 @Composable
 fun DetailsScreen(
@@ -64,20 +64,20 @@ fun DetailsScreen(
                 .background(Color.White)
                 .padding(horizontal = 20.dp, vertical = 18.dp)
         ) {
-            Text("Niladri Reservoir", fontSize = 29.sp, color = Color(0xFF1A1D2E), fontFamily = AppFonts.SfUi, fontWeight = FontWeight.SemiBold)
-            Spacer(modifier = Modifier.height(6.dp))
-            Text("Tekergat, Sunamgnj", fontSize = 14.sp, color = Color(0xFF8A8F9C), fontFamily = AppFonts.SfUi)
+            Text("Niladri Reservoir", fontSize = 29.sp, color = Color(0xFF1A1D2E)
+            Spacer(modifier = Modifier.height(6.dp)), fontFamily = R.font.
+            Text("Tekergat, Sunamgnj", fontSize = 14.sp, color = Color(0xFF8A8F9C)
             Spacer(modifier = Modifier.height(10.dp))
-            Text("4.7 (2498)   \$59/Person", fontSize = 15.sp, color = Color(0xFF1A1D2E), fontFamily = AppFonts.SfUi)
+            Text("4.7 (2498)   \$59/Person", fontSize = 15.sp, color = Color(0xFF1A1D2E)
             Spacer(modifier = Modifier.height(14.dp))
-            Text("About Destination", fontSize = 20.sp, color = Color(0xFF1A1D2E), fontFamily = AppFonts.SfUi, fontWeight = FontWeight.SemiBold)
+            Text("About Destination", fontSize = 20.sp, color = Color(0xFF1A1D2E)
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "You will get a complete travel package in this destination. Packages are in form of airline tickets, accommodation, and local transport.",
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 color = Color(0xFF7D8796),
-                fontFamily = AppFonts.SfUi
+
             )
             Spacer(modifier = Modifier.weight(1f))
             Box(
