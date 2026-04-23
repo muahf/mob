@@ -31,6 +31,8 @@ sealed class Screen(val route: String, val screenType: ScreenType) {
 }
 
 sealed class NavItem(val title: String, val screen: Screen, val iconRes: Int) {
+
+
     // Тут меняются иконки из app/src/main/res/drawable
     object Home : NavItem("Home", Screen.Home, R.drawable.home)
     object Calendar : NavItem("Calendar", Screen.Calendar, R.drawable.calendar)

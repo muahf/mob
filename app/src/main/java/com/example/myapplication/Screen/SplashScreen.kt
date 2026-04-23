@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
@@ -35,32 +36,29 @@ fun SplashScreen(
     }
 
     Box(
-        contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color(0xFF2EB6EC))
     ) {
+        // Картинка по центру
+        Image(
+            painter = painterResource(R.drawable.samoletiki),
+            contentDescription = "Logo",
+            modifier = Modifier
+                .size(132.dp)
+                .align(Alignment.Center)
+        )
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            Image(
-                painter = painterResource(R.drawable.caht),
-                contentDescription = "Logo",
-                modifier = Modifier.size(132.dp)
-            )
-
-            Spacer(modifier = Modifier.height(28.dp))
-
-            Text(
-                text = "Travenor",
-                fontSize = 38.sp,
-                color = Color.White,
-                fontFamily = AppFonts.GeometricSplash,
-                fontWeight = FontWeight.Black
-            )
-        }
+        // Текст ближе к низу
+        Text(
+            text = "Travenor",
+            fontSize = 38.sp,
+            color = Color.White,
+            fontFamily = AppFonts.GeometricSplash,
+            fontWeight = FontWeight.Black,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 60.dp)  // Отступ от нижнего края
+        )
     }
 }

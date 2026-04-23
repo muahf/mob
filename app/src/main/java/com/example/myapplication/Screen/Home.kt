@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,7 +22,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
+import androidx.compose.ui.unit.sp
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,10 +33,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
@@ -43,8 +46,18 @@ fun HomeScreen(
     onOpenDetails: () -> Unit
 ) {
     val cards = listOf(
-        DestinationCardData("Niladri Reservoir", "Tekergat, Sunamgnj", 4.7f),
-        DestinationCardData("Darma Reservoir", "Darma, Kuningan", 4.3f)
+        DestinationCardData(
+            title = "Niladri Reservoir",
+            location = "Tekergat, Sunamgnj",
+            rating = 4.7f,
+            imageRes = R.drawable.f0300adc49024100a89c01bb1b2bacc523162e75 // 👈 было второе
+        ),
+        DestinationCardData(
+            title = "Darma Reservoir",
+            location = "Darma, Kuningan",
+            rating = 4.3f,
+            imageRes = R.drawable.ce609041af2a3946819dfaa9194f6eb90ce77764 // 👈 было первое
+        )
     )
 
     Column(
@@ -56,7 +69,7 @@ fun HomeScreen(
         HeaderSection()
         Spacer(modifier = Modifier.height(18.dp))
         TitleSection()
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(28.dp))  // Уменьшил отступ
         SectionHeader()
         Spacer(modifier = Modifier.height(14.dp))
 
@@ -68,6 +81,9 @@ fun HomeScreen(
                 )
             }
         }
+
+        // Отступ снизу для навигации (50 dp)
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 
@@ -87,10 +103,10 @@ private fun HeaderSection() {
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.profile),
+                    painter = painterResource(id = R.drawable.icon),
                     contentDescription = null,
-                    tint = Color(0xFF1C2A3A),
-                    modifier = Modifier.size(20.dp)
+                    tint = Color.Unspecified,
+                    modifier = Modifier.size(40.dp)
                 )
             }
 
@@ -113,38 +129,56 @@ private fun HeaderSection() {
             Icon(
                 painter = painterResource(id = R.drawable.notification),
                 contentDescription = null,
-                tint = Color(0xFF1A1D2E),
-                modifier = Modifier.size(20.dp)
+                tint = Color.Unspecified,
+                modifier = Modifier.size(56.dp)
             )
         }
     }
 }
-
+val SfUiLight = FontFamily(
+    Font(R.font.sfuidisplaylight, FontWeight.Light)
+)
 @Composable
 private fun TitleSection() {
     Text(
         text = "Explore the",
-        fontSize = 36.sp,
-        color = Color(0xFF1A1D2E),
-        fontFamily = AppFonts.SfUi
+        fontSize = 28.sp,
+        fontWeight = FontWeight.Light,
+        color = Color(0xFF1A1D2E).copy(alpha = 0.6f)
     )
 
-    val styled = buildAnnotatedString {
-        withStyle(style = SpanStyle(color = Color(0xFF1A1D2E), fontWeight = FontWeight.Bold)) {
-            append("Beautiful ")
-        }
-        withStyle(style = SpanStyle(color = Color(0xFFFF7E33), fontWeight = FontWeight.Bold)) {
-            append("world!")
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Beautiful ",
+            fontSize = 34.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF1A1D2E),
+            fontFamily = AppFonts.SfUi
+        )
+
+        Box {
+            Text(
+                text = "world!",
+                fontSize = 34.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFFFF7E33),
+                fontFamily = AppFonts.SfUi
+            )
+
+            Image(
+                painter = painterResource(id = R.drawable.underline),
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .offset(y = 6.dp) // 👈 подгон под макет
+                    .width(90.dp)
+                    .height(10.dp)
+            )
         }
     }
-    Text(
-        text = styled,
-        fontSize = 46.sp,
-        lineHeight = 50.sp,
-        fontFamily = AppFonts.SfUi
-    )
 }
-
 @Composable
 private fun SectionHeader() {
     Row(
@@ -163,7 +197,8 @@ private fun SectionHeader() {
             text = "View all",
             fontSize = 15.sp,
             color = Color(0xFFFF914D),
-            fontFamily = AppFonts.SfUi
+            fontFamily = AppFonts.SfUi,
+            modifier = Modifier.clickable { }  // Добавил кликабельность
         )
     }
 }
@@ -182,15 +217,37 @@ private fun DestinationCard(
             .clickable(onClick = onClick)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.travel_mockup),
-                contentDescription = null,
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(240.dp)
-                    .clip(RoundedCornerShape(18.dp)),
-                contentScale = ContentScale.Crop
-            )
+                    .height(260.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = data.imageRes),
+                    contentDescription = data.title,
+                    modifier = Modifier
+                        .matchParentSize()
+                        .clip(RoundedCornerShape(18.dp)),
+                    contentScale = ContentScale.Crop
+                )
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(10.dp)
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.7f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.bookmark),
+                        contentDescription = null,
+                        tint = Color(0xFF1A1D2E),
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -207,7 +264,12 @@ private fun DestinationCard(
                     fontFamily = AppFonts.SfUi
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = "★", color = Color(0xFFFFB833), fontSize = 13.sp)
+                    Icon(
+                        painter = painterResource(id = R.drawable.star),
+                        contentDescription = null,
+                        tint = Color(0xFFFFC107),
+                        modifier = Modifier.size(16.dp)
+                    )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = data.rating.toString(),
@@ -218,21 +280,36 @@ private fun DestinationCard(
                 }
             }
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    painter = painterResource(id = R.drawable.poisk),
+            // ✅ ГЕОЛОКАЦИЯ И КАРТИНКА В ОДНОЙ СТРОКЕ
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Левая часть: иконка гео + текст
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.geo),
+                        contentDescription = null,
+                        tint = Color(0xFF8A8F9C),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = data.location,
+                        color = Color(0xFF8A8F9C),
+                        fontSize = 12.sp,
+                        fontFamily = AppFonts.SfUi
+                    )
+                }
+
+                // Правая часть: картинка users
+                Image(
+                    painter = painterResource(id = R.drawable.users),
                     contentDescription = null,
-                    tint = Color(0xFF8A8F9C),
-                    modifier = Modifier.size(14.dp)
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(
-                    text = data.location,
-                    color = Color(0xFF8A8F9C),
-                    fontSize = 11.sp,
-                    fontFamily = AppFonts.SfUi
+                    modifier = Modifier.size(55.dp)
                 )
             }
         }
@@ -242,5 +319,6 @@ private fun DestinationCard(
 private data class DestinationCardData(
     val title: String,
     val location: String,
-    val rating: Float
+    val rating: Float,
+    val imageRes: Int
 )
